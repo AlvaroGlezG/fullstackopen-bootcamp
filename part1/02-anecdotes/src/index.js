@@ -6,17 +6,26 @@ const App = (props) => {
   const [points, setPoints] = useState([1, 4, 6, 3, 2, 3])
   const [maxVoted, setMaxVoted] = useState(2)
 
+  const anedotesSelector = () => {
+    return Math.floor(Math.random() * anecdotes.length)
+  }
+
   const handleClickAnecdotes = () => {
-    const anecdote = Math.floor(Math.random() * anecdotes.length);
-    setSelected(anecdote);
+    let anecdote = anedotesSelector()
+
+    while(anecdote === selected){
+      anecdote = anedotesSelector();
+    }
+
+    setSelected(anecdote)
   }
 
   const handleClickVotes = () => {
-    const copyPoints = [...points];
-    copyPoints[selected] = copyPoints[selected] + 1;
-    setPoints(copyPoints);
+    const copyPoints = [...points]
+    copyPoints[selected] = copyPoints[selected] + 1
+    setPoints(copyPoints)
 
-    setMaxVoted(copyPoints.indexOf(Math.max(...copyPoints)));
+    setMaxVoted(copyPoints.indexOf(Math.max(...copyPoints)))
   }
   return (
     <div>
